@@ -70,6 +70,11 @@
 #   pry>ENUMS::CAMPAIGN_STATUSES[2]          # active
 #
 
+ORGANIZATION_ROLES:
+  - administrator
+  - member
+  - owner
+
 USER_ROLES:
   - administrator
   - advertiser
