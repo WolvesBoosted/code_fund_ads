@@ -27,3 +27,4 @@ window.Noty.overrideDefaults({
     close: 'animated fadeOutRight'
   }
 })
+
