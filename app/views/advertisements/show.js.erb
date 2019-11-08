@@ -1,10 +1,9 @@
 (function () {
-  function showAd(attempts) {
+  function init(attempts) {
     attempts = attempts || 1
     if (attempts > 3) return
-    if (!window.showCodeFundAdvertisement) return setTimeout(function () { showAd(attempts + 1) }, 500)
-
-    window.showCodeFundAdvertisement(
+    if (!CodeFundAd) return setTimeout(function () { init(attempts + 1) }, 500)
+    const ad = new CodeFundAd(
       '<%= @target || "codefund" %>',
       '<%= @advertisement_html.to_s.html_safe %>',
       '<%= @impression_url.to_s.strip %>',
@@ -14,17 +13,18 @@
       '<%= @uplift_url.to_s.strip %>',
       <%= !!@campaign&.fallback? %>
     )
+    ad.perform()
   }
 
   const codefundScriptId = 'codefund-script'
   if (document.getElementById(codefundScriptId)) {
-    showAd(1)
+    init(1)
   } else {
     const script = document.createElement('script')
     script.setAttribute('id', codefundScriptId)
     script.setAttribute('type', 'text/javascript')
-    script.setAttribute('src', '<%= asset_pack_url "advertisements.js" %>')
-    script.addEventListener('load', showAd)
+    script.setAttribute('src', '<%= asset_pack_url "code_fund_ad.js" %>')
+    script.addEventListener('load', init)
     document.head.appendChild(script)
   }
 })()
