@@ -2,7 +2,7 @@
  * CodeFund is whitelisted as an Acceptable Ads provider.
  * SEE: https://acceptableads.com
  *
- * This uplift methods in this script help determine if our whitelisted status allowed the ad
+ * The uplift methods in this script help determine if our whitelisted status allowed the ad
  * to display on clients that are running Adblock Plus.
  */
 class CodeFundAd {
