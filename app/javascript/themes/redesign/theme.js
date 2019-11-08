@@ -24,10 +24,10 @@ document.addEventListener('turbolinks:load', function() {
   var mySVGsToInject = document.querySelectorAll('img.js-svg-injector');
   SVGInjector(mySVGsToInject);
 
-  var skin = localStorage.getItem('skin') || 'default';
-  var unusedLink = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
-  unusedLink.setAttribute('rel', '');
-  unusedLink.setAttribute('disabled', true);
+  // var skin = localStorage.getItem('skin') || 'default';
+  // var unusedLink = document.querySelector('link[data-skin]:not([data-skin="' + skin + '"])');
+  // unusedLink.setAttribute('rel', '');
+  // unusedLink.setAttribute('disabled', true);
 })
 
 
