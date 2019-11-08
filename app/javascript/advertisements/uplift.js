@@ -8,11 +8,7 @@
 
 let uplift = {}
 
-// TODO: figure out how to pass URLs in to this script
-const upliftUrl = '?'
-const adblockPlusPixelUrl = '?'
-
-const trackUplift = () => {
+const trackUplift = upliftUrl => {
   try {
     console.log(`CodeFund is recording uplift. ${upliftUrl}`)
     const xhr = new XMLHttpRequest()
@@ -23,25 +19,25 @@ const trackUplift = () => {
   }
 }
 
-const verifyUplift = () => {
+const verifyUplift = upliftUrl => {
   if (uplift.pixel1 === undefined || uplift.pixel2 === undefined) return
-  if (uplift.pixel1 && !uplift.pixel2) trackUplift()
+  if (uplift.pixel1 && !uplift.pixel2) trackUplift(upliftUrl)
 }
 
-const detectUplift = count => {
+export const detectUplift = (adblockPlusPixelUrl, upliftUrl, count) => {
   if (adblockPlusPixelUrl.length === 0) return
   var xhr = new XMLHttpRequest()
   xhr.onreadystatechange = () => {
     if (xhr.readyState === 4) {
       if (xhr.status >= 200 && xhr.status < 300) {
         if (count === 1) {
-          detectUplift(2)
+          detectUplift(adblockPlusPixelUrl, upliftUrl, 2)
         }
         uplift['pixel' + count] = true
       } else {
         uplift['pixel' + count] = false
       }
-      verifyUplift()
+      verifyUplift(upliftUrl)
     }
   }
   xhr.open(

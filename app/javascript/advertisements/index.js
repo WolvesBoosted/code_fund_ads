@@ -1,33 +1,24 @@
-import { closeCodeFund, codefundClosed, elementVisible } from './helpers'
+import { setUpliftUrls, detectUplift } from './uplift'
+import {
+  closeCodefund,
+  codefundClosed,
+  dispatchCodefundEvent,
+  elementVisible
+} from './helpers'
 
-const codefundElementId = 'codefund' // TODO: support passing this value in
-
-const dispatchCodefundEvent = detail => {
-  const evt = new Event('codefund')
-  evt.detail = detail
-  window.dispatchEvent(evt)
-}
-
-const showAdvertisement = (codefundElement, advertisementHtml) => {
-  //var codeFundElement = document.getElementById('codefund') || document.getElementById('<%= @target %>');
-  //if (!elementVisible(codeFundElement)) {
-  //console.log('CodeFund element not visible! Please verify an element exists with id="codefund" and that it is visible.');
-  //return;
-  //}
-  //codeFundElement.innerHTML = '<%= @advertisement_html.html_safe %>';
-  //codeFundElement.querySelector('img[data-src="impression_url"]').src = '<%= @impression_url.html_safe %>';
-  //codeFundElement.querySelectorAll('a[data-href="campaign_url"]').forEach(function (a) { a.href = '<%= @campaign_url.html_safe %>'; });
-  //var poweredByElement = codeFundElement.querySelector('a[data-target="powered_by_url"]');
-  //if (poweredByElement) { poweredByElement.href = '<%= @powered_by_url.html_safe %>'; }
-  //var closeElement = codeFundElement.querySelector('button[data-behavior="close"]');
-  //if (closeElement) { closeElement.addEventListener('click', closeCodeFund); }
-  //evt.detail = { status: 'ok', house: <%= @campaign.fallback? %> };
-  //detectUplift(1);
-}
-
-export const embed = advertisementHtml => {
-  document.removeEventListener('DOMContentLoaded', embed)
-  const codeFundElement = document.getElementById(codefundElementId)
+const showCodeFundAdvertisement = (
+  codefundElementId,
+  advertisementHtml,
+  impressionUrl,
+  campaignUrl,
+  poweredByUrl,
+  adblockPlusPixelUrl,
+  upliftUrl,
+  fallback
+) => {
+  const codefundElement =
+    document.getElementById(codefundElementId) ||
+    document.getElementById('codefund')
 
   if (!codefundElement || !elementVisible(codefundElement)) {
     console.log(
@@ -36,19 +27,36 @@ export const embed = advertisementHtml => {
     return dispatchCodefundEvent({ status: 'no-element' })
   }
 
-  if (!advertisementHtml) {
+  if (!advertisementHtml || advertisementHtml.length === 0) {
     console.log('CodeFund does not have an advertiser for you at this time.')
     return dispatchCodefundEvent({ status: 'no-advertiser' })
   }
 
   if (codefundClosed()) {
-    console.log('CodeFund ad has been previously closed by the user.')
+    console.log('CodeFund ad has been closed by the user.')
     return dispatchCodefundEvent({ status: 'closed' })
   }
 
-  showAdvertisement(advertisementHtml)
+  codefundElement.innerHTML = advertisementHtml
+
+  codefundElement
+    .querySelectorAll('img[data-src="impression_url"]')
+    .forEach(img => (img.src = impressionUrl))
+
+  codefundElement
+    .querySelectorAll('a[data-href="campaign_url"]')
+    .forEach(a => (a.href = campaignUrl))
+
+  codefundElement
+    .querySelectorAll('a[data-target="powered_by_url"]')
+    .forEach(a => (a.href = poweredByUrl))
+
+  codefundElement
+    .querySelectorAll('button[data-behavior="close"]')
+    .forEach(b => b.addEventListener('click', closeCodefund))
+
+  dispatchCodefundEvent({ fallback, house: fallback, status: 'ok' })
+  detectUplift(adblockPlusPixelUrl, upliftUrl, 1)
 }
 
-document.readyState === 'loading'
-  ? document.addEventListener('DOMContentLoaded', embed)
-  : embed()
+window.showCodeFundAdvertisement = showCodeFundAdvertisement
