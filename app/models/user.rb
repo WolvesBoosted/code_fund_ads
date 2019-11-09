@@ -153,13 +153,10 @@ class User < ApplicationRecord
     :database_authenticatable,
     :invitable,
     :lockable,
-    :omniauthable,
     :recoverable,
     :rememberable,
-    :timeoutable,
     :trackable,
-    :validatable,
-    omniauth_providers: [:github]
+    :validatable
   )
   has_one_attached :avatar
   acts_as_commentable

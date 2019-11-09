@@ -25,8 +25,7 @@ Rails.application.routes.draw do
 
   devise_for :users, controllers: {
     sessions: "sessions",
-    invitations: "invitations",
-    omniauth_callbacks: "omniauth_callbacks",
+    invitations: "invitations"
   }
 
   resources :jobs, only: [:index]

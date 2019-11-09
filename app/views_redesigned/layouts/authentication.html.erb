@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= ga_tag_manager_header %>
+
+    <!-- Meta Tags -->
+    <%= display_meta_tags site: "CodeFund" %>
+    <link rel="manifest" href="/site.webmanifest">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <!-- CDN Stylesheets -->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.11.2/css/all.css" integrity="sha384-zrnmn8R8KkWl12rAZFt4yKjxplaDaT7/EUkKm7AovijfrQItFWR7O/JJn4DAa/gx" crossorigin="anonymous">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Poppins:300,400,500,600">
+
+    <!-- Compressed Stylesheets -->
+    <%= stylesheet_pack_tag 'code_fund_redesign', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <!-- Compressed JavaScripts -->
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'code_fund_redesign', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body style="padding-top: 0px !important;" data-referral-code="<%= session[:referral_code] %>">
+    <%= render "/@shared/skippy" %>
+    
+    <main class="auth">
+      <%= yield %>
+    </main>
+
+    <%= noty_flash %>
+    <%= headway_tag %>
+    <%= ga_tag_manager_footer %>
+  </body>
+</html>
