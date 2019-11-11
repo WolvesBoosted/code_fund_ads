@@ -1,4 +1,4 @@
-#cf.default.dark {
+#cf[data-template='default'][data-theme='dark'] {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
 
@@ -51,7 +51,7 @@
   }
 }
 
-#cf.default.light {
+#cf[data-template='default'][data-theme='light'] {
   font-family: Helvetica, Arial, sans-serif;
   font-size: 14px;
 

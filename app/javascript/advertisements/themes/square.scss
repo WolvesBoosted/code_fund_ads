@@ -1,4 +1,4 @@
-#cf.square.dark {
+#cf[data-template='square'][data-theme='dark'] {
   max-width: 255px;
   margin: 0 auto;
   background-color: hsl(0, 0%, 98%);
@@ -68,7 +68,7 @@
   }
 }
 
-#cf.square.light {
+#cf[data-template='square'][data-theme='light'] {
   max-width: 255px;
   margin: 0 auto;
   background-color: hsl(0, 0%, 98%);

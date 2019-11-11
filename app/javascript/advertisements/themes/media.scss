@@ -1,4 +1,4 @@
-#cf.media.dark {
+#cf[data-template='media'][data-theme='dark'] {
   margin: 0 auto;
   max-width: 330px;
 
@@ -54,7 +54,7 @@
   }
 }
 
-#cf.media.light {
+#cf[data-template='media'][data-theme='light'] {
   margin: 0 auto;
   max-width: 330px;
 

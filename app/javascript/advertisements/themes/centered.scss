@@ -1,4 +1,4 @@
-#cf.centered.dark {
+#cf[data-template='centered'][data-theme='dark'] {
   a {
     box-shadow: none !important;
   }
@@ -55,7 +55,7 @@
   }
 }
 
-#cf.centered.light {
+#cf[data-template='centered'][data-theme='light'] {
   a {
     box-shadow: none !important;
   }

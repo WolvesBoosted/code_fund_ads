@@ -1,4 +1,4 @@
-#cf.image-only.dark {
+#cf[data-template='image-only'][data-theme='dark'] {
   max-width: 280px;
   margin: 0 auto;
 
@@ -68,7 +68,7 @@
   }
 }
 
-#cf.image-only.light {
+#cf[data-template='image-only'][data-theme='light'] {
   max-width: 280px;
   margin: 0 auto;
 

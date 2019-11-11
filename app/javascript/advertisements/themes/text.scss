@@ -1,4 +1,4 @@
-#cf.text.dark {
+#cf[data-template='text'][data-theme='dark'] {
   color: #77838f;
   text-decoration: none !important;
   box-shadow: none !important;
@@ -29,7 +29,7 @@
   }
 }
 
-#cf.text.light {
+#cf[data-template='text'][data-theme='light'] {
     color: #77838f;
   text-decoration: none !important;
   box-shadow: none !important;

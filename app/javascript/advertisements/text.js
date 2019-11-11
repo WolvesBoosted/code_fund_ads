@@ -1,4 +1,4 @@
-export const text = ad => {
+export default ad => {
   ad.adElement
     .querySelector('a[data-href]')
     .addEventListener('mouseenter', event => {

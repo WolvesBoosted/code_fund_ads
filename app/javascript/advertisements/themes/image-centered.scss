@@ -1,4 +1,4 @@
-#cf.image-centered.dark {
+#cf[data-template='image-centered'][data-theme='dark'] {
   max-width: 280px;
   margin: 0 auto;
   border: none;
@@ -72,7 +72,7 @@
   }
 }
 
-#cf.image-centered.light {
+#cf[data-template='image-centered'][data-theme='light'] {
   max-width: 280px;
   margin: 0 auto;
   border: none;

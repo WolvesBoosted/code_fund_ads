@@ -1,4 +1,4 @@
-#cf.docsify.dark {
+#cf[data-template='docsify'][data-theme='dark'] {
   margin: 0 auto;
   max-width: 330px;
 
@@ -62,7 +62,7 @@
   }
 }
 
-#cf.docsify.light {
+#cf[data-template='docsify'][data-theme='light'] {
   margin: 0 auto;
   max-width: 330px;
 

@@ -1,4 +1,4 @@
-import { text } from './text'
+import text from './text'
 
 /*
  * CodeFund is whitelisted as an Acceptable Ads provider.
@@ -58,15 +58,11 @@ class CodeFundAd {
   }
 
   get template () {
-    return this.adElement
-      ? this.adElement.getAttribute('class').split(' ')[0]
-      : null
+    return this.adElement ? this.adElement.dataset.template : null
   }
 
   get theme () {
-    return this.adElement
-      ? this.adElement.getAttribute('class').split(' ')[1]
-      : null
+    return this.adElement ? this.adElement.dataset.theme : null
   }
 
   close () {

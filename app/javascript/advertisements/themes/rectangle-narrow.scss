@@ -1,4 +1,4 @@
-#cf.rectangle-narrow.dark {
+#cf[data-template='rectangle-narrow'][data-theme='dark'] {
   margin: 0 auto;
   max-width: 330px;
   border: none;
@@ -45,7 +45,7 @@
   }
 }
 
-#cf.rectangle-narrow.light {
+#cf[data-template='rectangle-narrow'][data-theme='light'] {
   margin: 0 auto;
   max-width: 330px;
   border: none;

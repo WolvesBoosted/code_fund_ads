@@ -1,4 +1,4 @@
-#cf.vertical.dark {
+#cf[data-template='vertical'][data-theme='dark'] {
   width: 125px;
   margin: 0 auto;
   border: none;
@@ -59,7 +59,7 @@
   }
 }
 
-#cf.vertical.light {
+#cf[data-template='vertical'][data-theme='light'] {
   width: 125px;
   margin: 0 auto;
   border: none;
