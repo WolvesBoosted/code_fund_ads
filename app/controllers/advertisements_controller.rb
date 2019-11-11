@@ -1,5 +1,4 @@
 class AdvertisementsController < ApplicationController
-  include AdRenderable
   include Untrackable
 
   protect_from_forgery except: :show
@@ -10,6 +9,8 @@ class AdvertisementsController < ApplicationController
   before_action :set_virtual_impression_id
   after_action :create_virtual_impression, if: :standard?
   # after_action :cache_visitor_response
+
+  helper_method :template_name, :theme_name
 
   def show
     track_event :virtual_impression_initiated unless sponsor?
@@ -80,7 +81,7 @@ class AdvertisementsController < ApplicationController
       end
     end
 
-    @advertisement_html = render_advertisement
+    @advertisement_html = render_to_string(template: "/ad_templates/#{template_name}.html.erb", layout: false).squish
     @campaign_url = advertisement_clicks_url(
       @virtual_impression_id,
       campaign_id: @campaign.id,
@@ -304,11 +305,6 @@ class AdvertisementsController < ApplicationController
     split_alternative = split_trial.choose!(self)
     return nil unless split_alternative
     Creative.active.find_by_split_test_name split_alternative.name
-  end
-
-  def render_advertisement
-    key = "#{@campaign.cache_key_with_version}/#{@creative.cache_key_with_version}/#{template_cache_key}/#{theme_cache_key}"
-    Rails.cache.fetch(key) { render_advertisement_html template, theme, html: request.format.html? }
   end
 
   def set_virtual_impression_id

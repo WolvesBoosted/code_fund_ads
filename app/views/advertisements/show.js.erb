@@ -2,7 +2,7 @@
   function init(attempts) {
     attempts = attempts || 1
     if (attempts > 3) return
-    if (!CodeFundAd) return setTimeout(function () { init(attempts + 1) }, 500)
+    if (typeof CodeFundAd === 'undefined') return setTimeout(function () { init(attempts + 1) }, 500)
     const ad = new CodeFundAd(
       '<%= @target || "codefund" %>',
       '<%= @advertisement_html.to_s.html_safe %>',
@@ -16,7 +16,19 @@
     ad.perform()
   }
 
+  const codefundStylesheetId = 'codefund-style'
   const codefundScriptId = 'codefund-script'
+
+  if (!document.getElementById(codefundStylesheetId)) {
+    const stylesheet = document.createElement('link')
+    stylesheet.setAttribute('id', codefundStylesheetId)
+    stylesheet.setAttribute('rel', 'stylesheet')
+    stylesheet.setAttribute('media', 'all')
+    stylesheet.setAttribute('href', '<%= asset_pack_url "code_fund_ad.css" %>')
+    stylesheet.addEventListener('load', init)
+    document.head.appendChild(stylesheet)
+  }
+
   if (document.getElementById(codefundScriptId)) {
     init(1)
   } else {

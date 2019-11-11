@@ -1,0 +1,61 @@
+#cf.text.dark {
+  color: #77838f;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 22px;
+
+  * {
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+
+  a {
+    color: #3498db;
+  }
+
+  a, b {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 22px;
+  }
+
+  .cf-hidden {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    border-style: none;
+  }
+}
+
+#cf.text.light {
+    color: #77838f;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 22px;
+
+  * {
+    text-decoration: none !important;
+    box-shadow: none !important;
+  }
+
+  a {
+    color: #3498db;
+  }
+
+  a, b {
+    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 22px;
+  }
+
+  .cf-hidden {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    border-style: none;
+  }
+}

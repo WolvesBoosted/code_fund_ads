@@ -3,20 +3,21 @@ module AdRenderable
 
   protected
 
-  def render_advertisement_html(template, theme, html: false)
-    formatter = Premailer.new(
-      template,
-      with_html_string: true,
-      html_fragment: true,
-      css_string: theme,
-      input_encoding: "utf-8",
-      output_encoding: "utf-8",
-      adapter: :nokogiri_fast,
-    )
-    formatted_code = formatter.to_inline_css.squish
-    formatted_code = formatted_code.gsub(/\'/, "\\\\'") unless html
-    formatted_code
-  end
+  # def render_advertisement_html(template, theme, html: false)
+  #   self.template
+  #   formatter = Premailer.new(
+  #     template,
+  #     with_html_string: true,
+  #     html_fragment: true,
+  #     css_string: theme,
+  #     input_encoding: "utf-8",
+  #     output_encoding: "utf-8",
+  #     adapter: :nokogiri_fast,
+  #   )
+  #   formatted_code = formatter.to_inline_css.squish
+  #   formatted_code = formatted_code.gsub(/\'/, "\\\\'") unless html
+  #   formatted_code
+  # end
 
   # Ad Template ----------------------------------------------------------------------------------------------
 
@@ -24,21 +25,21 @@ module AdRenderable
     raise NotImplementedError, "Must be implemented by classes that include this module"
   end
 
-  def template_path
-    @template_path ||= Rails.root.join("app/views/ad_templates/#{template_name}/show.html.erb")
-  end
+  # def template_path
+  #   @template_path ||= Rails.root.join("app/views/ad_templates/#{template_name}/show.html.erb")
+  # end
 
-  def template_mtime
-    @template_mtime ||= File.mtime(template_path)
-  end
+  # def template_mtime
+  #   @template_mtime ||= File.mtime(template_path)
+  # end
 
-  def template_cache_key
-    @template_cache_key ||= "templates/#{template_name}/#{template_mtime.to_i}"
-  end
+  # def template_cache_key
+  #   @template_cache_key ||= "templates/#{template_name}/#{template_mtime.to_i}"
+  # end
 
-  def template
-    render_to_string template: "/ad_templates/#{template_name}/show.html.erb", layout: false
-  end
+  # def template
+  #   render_to_string template: "/ad_templates/#{template_name}/show.html.erb", layout: false
+  # end
 
   # Ad Theme -------------------------------------------------------------------------------------------------
 
