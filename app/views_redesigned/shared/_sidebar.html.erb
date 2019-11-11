@@ -4,6 +4,16 @@
       <nav id="stacked-menu" class="stacked-menu">
         <ul class="menu">
           <li class="menu-item">
+            <div class="px-3 mb-2">
+              <%= select_tag "team",
+                options_from_collection_for_select(current_user&.organizations, "id", "name", session[:organization_id]),
+                class: "form-control custom-select",
+                data: {
+                  reflex: "change->TeamReflex#change"
+                } %>
+            </div>
+          </li>
+          <li class="menu-item">
             <%= render "/shared/date_range_picker" %>
           </li>
           <% if authorized_user.can_advertise_and_publish? %>
