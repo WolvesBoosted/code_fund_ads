@@ -5,11 +5,11 @@
         <ul class="menu">
           <li class="menu-item">
             <div class="px-3 mb-2">
-              <%= select_tag "team",
-                options_from_collection_for_select(current_user&.organizations, "id", "name", session[:organization_id]),
+              <%= select_tag "organization-user",
+                options_from_collection_for_select(current_user&.organizations, "id", "name", session[:organization_id].to_s),
                 class: "form-control custom-select",
                 data: {
-                  reflex: "change->TeamReflex#change"
+                  reflex: "change->CurrentOrganizationReflex#change"
                 } %>
             </div>
           </li>
