@@ -76,7 +76,7 @@ class CodeFundAd {
     window.dispatchEvent(evt)
   }
 
-  perform () {
+  perform (preview) {
     if (!this.visible) {
       console.log(
         `CodeFund element not visible! Please verify an element exists with id="${
@@ -98,9 +98,11 @@ class CodeFundAd {
 
     this.element.innerHTML = this.html
 
-    this.element
-      .querySelectorAll('img[data-src="impression_url"]')
-      .forEach(img => (img.src = this.impressionUrl))
+    if (!preview) {
+      this.element
+        .querySelectorAll('img[data-src="impression_url"]')
+        .forEach(img => (img.src = this.impressionUrl))
+    }
 
     this.element
       .querySelectorAll('a[data-href="campaign_url"]')
@@ -115,7 +117,7 @@ class CodeFundAd {
       .forEach(b => b.addEventListener('click', () => this.close.bind(this)))
 
     this.dispatch({ status: 'ok', house: this.fallback })
-    this.detectUplift(1)
+    if (!preview) this.detectUplift(1)
 
     if (this.template === 'text') text(this)
   }
