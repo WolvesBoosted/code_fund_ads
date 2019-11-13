@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   include Sortable
 
   before_action :authenticate_user!
-  before_action :authenticate_administrator!, except: [:show, :edit, :update]
+  before_action :authenticate_administrator!, except: [:index, :show, :edit, :update]
   before_action :set_user_search, only: [:index]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :set_organization, only: [:index], if: -> { params[:organization_id].present? }

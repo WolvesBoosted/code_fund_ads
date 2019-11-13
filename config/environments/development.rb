@@ -69,9 +69,4 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
   config.action_mailer.default_url_options = {host: "localhost", port: 3000}
-  config.session_store :cookie_store, {
-    key: "_code_fund_ads_#{Rails.env}_session",
-    expire_after: ActiveSupport::Duration.build(ENV.fetch("USER_SESSION_DURATION_IN_SECONDS", 2.weeks).to_i * 2),
-    domain: :all,
-  }
 end
