@@ -79,7 +79,6 @@ class UsersController < ApplicationController
   end
 
   def set_organization
-    # @organization = Organization.find(session[:organization_id])
     @organization ||= current_organization
   end
 
