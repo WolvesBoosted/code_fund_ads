@@ -13,6 +13,7 @@ class ApplicationController < ActionController::Base
   before_action :set_meta_tag_data
   before_action :sample_requests_for_scout
   before_action :set_ngrok_urls, if: -> { Rails.env.development? }
+  before_action :current_organization
 
   impersonates :user
 

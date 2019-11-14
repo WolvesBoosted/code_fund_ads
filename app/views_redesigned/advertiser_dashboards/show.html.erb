@@ -11,7 +11,7 @@
   <div class="metric-row mt-4">
     <%= render "/shared/widgets/stat_card",
       label: "Remaining Balance",
-      value: current_organization.balance.format %>
+      value: Current.organization.balance.format %>
     <%= render "/shared/widgets/stat_card",
       label: "Impressions",
       value: number_with_delimiter(current_user.impressions_count_as_advertiser(@start_date, @end_date)) %>
