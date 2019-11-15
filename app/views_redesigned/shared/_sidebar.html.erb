@@ -3,11 +3,13 @@
     <div class="aside-menu overflow-hidden">
       <nav id="stacked-menu" class="stacked-menu">
         <ul class="menu">
-          <li class="menu-item">
-            <div class="px-3 mb-2">
-              <%= render "shared/current_organization_form" %>
-            </div>
-          </li>
+          <% if available_organizations.present? %>
+            <li class="menu-item">
+              <div class="px-3 mb-2">
+                <%= render "shared/current_organization_form" %>
+              </div>
+            </li>
+          <% end %>
           <li class="menu-item">
             <%= render "/shared/date_range_picker" %>
           </li>
