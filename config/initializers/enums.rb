@@ -22,8 +22,8 @@ enums = HashWithIndifferentAccess.new(hash)
 #   ENUMS::AD_TEMPLATES::DEFAULT
 #   ENUMS::AD_THEMES::LIGHT
 #
-enums[:ad_templates] = Dir.children(Rails.root.join("app/views/ad_templates")).map { |path|
-  File.basename(path).sub(".html.erb", "")
+enums[:ad_templates] = Dir[Rails.root.join("app/javascript/advertisements/**")].each_with_object([]) { |path, memo|
+  memo << path.split("/").last if File.directory?(path)
 }.sort
 enums[:ad_templates].delete "@responsive_footer"
 enums[:ad_themes] = %w[dark light unstyled]

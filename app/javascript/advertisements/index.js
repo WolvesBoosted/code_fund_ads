@@ -1,4 +1,11 @@
-import text from './text'
+import Mustache from 'mustache'
+import { template as responsiveFooterTemplate } from './@responsive_footer'
+import { template as bottomBarTemplate } from './bottom-bar'
+
+const templates = {
+  '@responsive_footer': responsiveFooterTemplate,
+  'bottom-bar': bottomBarTemplate
+}
 
 /*
  * CodeFund is whitelisted as an Acceptable Ads provider.
@@ -6,39 +13,31 @@ import text from './text'
  *
  * The uplift methods in this script help determine if our whitelisted status allowed the ad
  * to display on clients that are running Adblock Plus.
+ *
+ * NOTE: options defined at: app/views/advertisements/_ad_options.json.jbuilder
  */
 class CodeFundAd {
-  constructor (
-    elementId,
-    html,
-    impressionUrl,
-    campaignUrl,
-    poweredByUrl,
-    adblockPlusPixelUrl,
-    upliftUrl,
-    fallback
-  ) {
-    this.elementId = elementId
-    this.html = html
-    this.impressionUrl = impressionUrl
-    this.campaignUrl = campaignUrl
-    this.poweredByUrl = poweredByUrl
-    this.adblockPlusPixelUrl = adblockPlusPixelUrl
-    this.upliftUrl = upliftUrl
-    this.fallback = fallback
+  constructor (options = {}) {
+    Object.assign(this, options)
     this.uplift = {}
+    this.perform()
+    console.log('CodeFundAd')
   }
 
-  get element () {
+  get container () {
     const el =
-      this.elementId && this.elementId.length
-        ? document.getElementById(this.elementId)
+      this.selector && this.selector.length
+        ? document.querySelector(this.selector)
         : null
     return el || document.getElementById('codefund')
   }
 
+  get element () {
+    return this.container ? this.container.querySelector('#cf') : null
+  }
+
   get visible () {
-    let currentElement = this.element
+    let currentElement = this.container
     if (!currentElement) return false
     while (currentElement) {
       const style = getComputedStyle(currentElement)
@@ -53,21 +52,9 @@ class CodeFundAd {
     return sessionStorage.getItem('codefund') === 'closed'
   }
 
-  get adElement () {
-    return document.getElementById('cf')
-  }
-
-  get template () {
-    return this.adElement ? this.adElement.dataset.template : null
-  }
-
-  get theme () {
-    return this.adElement ? this.adElement.dataset.theme : null
-  }
-
   close () {
     sessionStorage.setItem('codefund', 'closed')
-    this.element.remove()
+    this.container.remove()
   }
 
   dispatch (detail) {
@@ -79,14 +66,14 @@ class CodeFundAd {
   perform (preview) {
     if (!this.visible) {
       console.log(
-        `CodeFund element not visible! Please verify an element exists with id="${
-          this.elementId
-        }" and that it is visible.`
+        `CodeFund container element not visible! Please verify an element exists (and is visible) that matches the CSS selector "${
+          this.selector
+        }"`
       )
-      return this.dispatch({ status: 'no-element' })
+      return this.dispatch({ status: 'no-container-element' })
     }
 
-    if (!this.html || this.html.length === 0) {
+    if (!this.urls || !this.urls.campaign || this.urls.campaign.length === 0) {
       console.log('CodeFund does not have an advertiser for you at this time.')
       return this.dispatch({ status: 'no-advertiser' })
     }
@@ -96,30 +83,11 @@ class CodeFundAd {
       return this.dispatch({ status: 'closed' })
     }
 
-    this.element.innerHTML = this.html
-
-    if (!preview) {
-      this.element
-        .querySelectorAll('img[data-src="impression_url"]')
-        .forEach(img => (img.src = this.impressionUrl))
-    }
-
-    this.element
-      .querySelectorAll('a[data-href="campaign_url"]')
-      .forEach(a => (a.href = this.campaignUrl))
-
-    this.element
-      .querySelectorAll('a[data-target="powered_by_url"]')
-      .forEach(a => (a.href = this.poweredByUrl))
-
-    this.element
-      .querySelectorAll('button[data-behavior="close"]')
-      .forEach(b => b.addEventListener('click', () => this.close.bind(this)))
+    this.container.innerHTML = Mustache.render(templates[this.template], this)
+    //if (this.template === 'text') text(this)
 
     this.dispatch({ status: 'ok', house: this.fallback })
     if (!preview) this.detectUplift(1)
-
-    if (this.template === 'text') text(this)
   }
 
   trackUplift () {

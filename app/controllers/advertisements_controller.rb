@@ -81,7 +81,7 @@ class AdvertisementsController < ApplicationController
       end
     end
 
-    @advertisement_html = render_to_string(template: "/ad_templates/#{template_name}.html.erb", layout: false).squish
+    # @advertisement_html = render_to_string(template: "/ad_templates/#{template_name}.html.erb", layout: false).squish
     @campaign_url = advertisement_clicks_url(
       @virtual_impression_id,
       campaign_id: @campaign.id,
