@@ -6,7 +6,7 @@ json.creative do
   json.name @creative&.name
   json.headline @creative&.headline
   json.body @creative&.body
-  json.cta @creative&.cta
+  json.cta @creative&.cta || "Learn more"
   json.image_urls do
     json.icon @creative&.icon_image&.cloudfront_url
     json.small @creative&.small_image&.cloudfront_url
