@@ -1,11 +1,12 @@
 import Mustache from 'mustache'
-import { template as responsiveFooterTemplate } from './@responsive_footer'
-import { template as bottomBarTemplate } from './bottom-bar'
-
-const templates = {
-  '@responsive_footer': responsiveFooterTemplate,
-  'bottom-bar': bottomBarTemplate
+const templates = {}
+const requireTemplates = context => {
+  context.keys().forEach(path => {
+    const name = path.split('/')[1]
+    templates[name] = context(path).default
+  })
 }
+requireTemplates(require.context('./', true, /index\.js\.erb$/))
 
 /*
  * CodeFund is whitelisted as an Acceptable Ads provider.
@@ -21,7 +22,6 @@ class CodeFundAd {
     Object.assign(this, options)
     this.uplift = {}
     this.perform()
-    console.log('CodeFundAd')
   }
 
   get container () {
@@ -84,7 +84,6 @@ class CodeFundAd {
     }
 
     this.container.innerHTML = Mustache.render(templates[this.template], this)
-    //if (this.template === 'text') text(this)
 
     this.dispatch({ status: 'ok', house: this.fallback })
     if (!preview) this.detectUplift(1)
