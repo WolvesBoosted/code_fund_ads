@@ -12,11 +12,16 @@ class AdvertisementPreviewsController < ApplicationController
 
   def show
     @campaign ||= Campaign.find(params[:campaign_id])
+
+    # NOTE: this show action is overloaded and serves 2 distinct purposes
+    # 1. First it renders the HTML that embeds an iframe which includes the ad integration code
+    return render("/advertisement_previews/show") if request.format.html?
+    # 2. Second it renders the JavaScript to preview the ad
+
     @creative = @campaign.creatives.sample
 
     if @campaign && @creative && template_name && theme_name
       @virtual_impression_id = SecureRandom.uuid
-      @advertisement_html = render_to_string(template: "/ad_templates/#{template_name}.html.erb", layout: false).squish
       @campaign_url = advertisement_clicks_url(
         @virtual_impression_id,
         campaign_id: @campaign.id,
@@ -25,18 +30,13 @@ class AdvertisementPreviewsController < ApplicationController
         template: template_name,
         theme: theme_name,
       )
-      @impression_url = impression_url(@virtual_impression_id, format: :gif)
+      # NOTE: This is a preview. Do not set @impression_url as we don't want to track impressions
+      # @impression_url = impression_url(@virtual_impression_id, format: :gif)
       @powered_by_url = root_url
       @uplift_url = impression_uplifts_url(@virtual_impression_id, advertiser_id: @campaign.user_id)
     end
 
-    # NOTE: this action is overloaded and serves 2 distinct purposes
-    # 1. First it renders the HTML that embeds an iframe which includes the ad integration code
-    # 2. Second it renders the JavaScript to preview the ad
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    render "/advertisements/show"
   end
 
   def template_name
