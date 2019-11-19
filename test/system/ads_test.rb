@@ -4,6 +4,7 @@ class AdsTest < ApplicationSystemTestCase
   include SystemTestHelper
 
   setup do
+    Current.organization = organizations(:default)
     AdvertisementsController.any_instance.stubs(ad_test?: false)
 
     start_date = Date.parse("2019-01-01")
