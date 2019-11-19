@@ -83,7 +83,11 @@ class CodeFundAd {
       return this.dispatch({ status: 'closed' })
     }
 
-    this.container.innerHTML = Mustache.render(templates[this.template], this)
+    this.container.innerHTML = Mustache.render(
+      templates[this.template].mustache,
+      this
+    )
+    templates[this.template].initialize(this)
 
     this.dispatch({ status: 'ok', house: this.fallback })
     if (!preview) this.detectUplift(1)
