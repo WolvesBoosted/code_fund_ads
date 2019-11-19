@@ -20,8 +20,21 @@ module Frontend
           title: "Edit",
           "original-title": "Edit",
         } do
-          tag.span class: "fas fa-pen btn-icon__inner"
-        end
+        tag.span class: "fas fa-pen btn-icon__inner"
+      end
+    end
+
+    def delete_button(link: "#", add_class: "")
+      link_to link, method: :delete,
+                    class: "btn btn-xs btn-icon btn-subtle-secondary #{add_class}",
+                    data: {
+                      toggle: "tooltip",
+                      placement: "top",
+                      title: "Delete",
+                      "original-title": "Delete",
+                    } do
+        tag.span class: "fa fa-trash btn-icon__inner"
+      end
     end
 
     def button_panel(id: nil, add_class: "", &block)

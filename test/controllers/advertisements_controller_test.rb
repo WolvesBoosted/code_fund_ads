@@ -3,6 +3,10 @@ require "test_helper"
 class AdvertisementsControllerTest < ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 
+  setup do
+    Current.organization = organizations(:default)
+  end
+
   test "get advertisement with active & matching campaign" do
     AdvertisementsController.any_instance.stubs(ad_test?: false)
     campaign = active_campaign
