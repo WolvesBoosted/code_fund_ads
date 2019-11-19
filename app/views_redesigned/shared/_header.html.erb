@@ -70,12 +70,16 @@
             </button>
             <div class="dropdown-menu" aria-labelledby="avatarDropdown">
               <div class="dropdown-arrow ml-3"></div>
-              <li><%= link_to "View Profile", user_path(current_user), class: "dropdown-item" %></li>
-              <li><%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %></li>
-              <li><%= link_to "Change password", edit_user_passwords_path, class: "dropdown-item" %></li>
-              <li><%= link_to "Referrals", referrals_path, class: "dropdown-item" %></li>
+              <% if current_user != true_user %>
+                <%= link_to "Back to #{true_user.first_name}", stop_user_impersonation_path, class: "dropdown-item text-danger" %>
+                <div class="dropdown-divider"></div>
+              <% end %>
+              <%= link_to "View Profile", user_path(current_user), class: "dropdown-item" %>
+              <%= link_to "Edit Profile", edit_user_path(current_user), class: "dropdown-item" %>
+              <%= link_to "Change password", edit_user_passwords_path, class: "dropdown-item" %>
+              <%= link_to "Referrals", referrals_path, class: "dropdown-item" %>
               <div class="dropdown-divider"></div>
-              <li><%= link_to "Logout", destroy_user_session_path, class: "dropdown-item" %></li>
+              <%= link_to "Logout", destroy_user_session_path, class: "dropdown-item" %>
             </div><!-- /.dropdown-menu -->
           </div><!-- /.btn-account -->
         <% end %>
