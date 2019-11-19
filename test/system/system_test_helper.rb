@@ -2,15 +2,15 @@ require "application_system_test_case"
 
 module SystemTestHelper
   def assert_campaign_link(campaign)
-    assert_css "a[data-href='campaign_url'][href*='click?campaign_id=#{campaign.id}'][target='_blank'][rel='sponsored noopener']"
+    assert_css "a[href*='click?campaign_id=#{campaign.id}'][target='_blank'][rel='sponsored noopener']"
   end
 
   def assert_impression_pixel(property)
-    assert_css "img[data-src='impression_url'][src*='/display/']"
+    assert_css "img[src*='/display/']"
   end
 
   def assert_powered_by_link(text: "ethical ad by CodeFund")
-    assert_css "a[data-target='powered_by_url'][href][target='_blank'][rel='sponsored noopener']"
+    assert_css "a[href][class='cf-powered-by'][target='_blank'][rel='sponsored noopener']"
     assert_text :all, text
   end
 
