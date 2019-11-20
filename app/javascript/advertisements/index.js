@@ -7,6 +7,8 @@ const requireTemplates = context => {
   })
 }
 requireTemplates(require.context('./', true, /index\.js\.erb$/))
+const pixel =
+  'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw=='
 
 /*
  * CodeFund is whitelisted as an Acceptable Ads provider.
@@ -87,6 +89,12 @@ class CodeFundAd {
       templates[this.template].mustache,
       this
     )
+    this.container.querySelectorAll('img').forEach(el => {
+      el.addEventListener('error', event => (event.target.src = pixel))
+    })
+    this.container.querySelectorAll('[data-behavior="close"]').forEach(el => {
+      el.addEventListener('click', this.close.bind(this))
+    })
     templates[this.template].initialize(this)
 
     this.dispatch({ status: 'ok', house: this.fallback })
