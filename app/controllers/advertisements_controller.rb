@@ -23,8 +23,8 @@ class AdvertisementsController < ApplicationController
     respond_to do |format|
       format.js
       format.svg { render inline: @advertisement_html || catch_all_sponsor_html, status: :ok, layout: false }
-      format.json { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found, layout: false }
-      format.html { render "/advertisements/show", status: @advertisement_html ? :ok : :not_found, layout: false }
+      format.json { render "/advertisements/show", status: @creative ? :ok : :not_found, layout: false }
+      format.html { render "/advertisements/show", status: @creative ? :ok : :not_found, layout: false }
     end
   end
 
@@ -239,6 +239,7 @@ class AdvertisementsController < ApplicationController
     @campaign ||= get_paid_fallback_campaign if rand < ENV.fetch("PAID_FALLBACK_PERCENT", 90).to_f / 100
     @campaign ||= get_fallback_campaign(geo_targeted_campaign_relation)
     @campaign ||= get_fallback_campaign(campaign_relation)
+    @campaign ||= get_paid_fallback_campaign
   end
 
   def get_premium_campaign(campaign_relation)
