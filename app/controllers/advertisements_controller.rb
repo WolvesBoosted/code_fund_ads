@@ -200,11 +200,11 @@ class AdvertisementsController < ApplicationController
   end
 
   def fallback_template_name
-    @fallback_template_name ||= ENUMS::AD_TEMPLATES[property&.fallback_ad_template] || premium_template_name
+    @fallback_template_name ||= ENUMS::AD_TEMPLATES[params[:template] || property&.fallback_ad_template] || premium_template_name
   end
 
   def fallback_theme_name
-    @fallback_theme_name ||= ENUMS::AD_THEMES[property&.fallback_ad_theme] || premium_theme_name
+    @fallback_theme_name ||= ENUMS::AD_THEMES[params[:theme] || property&.fallback_ad_theme] || premium_theme_name
   end
 
   def keywords

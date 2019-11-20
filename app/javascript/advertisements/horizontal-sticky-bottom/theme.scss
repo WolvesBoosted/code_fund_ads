@@ -1,0 +1,103 @@
+#cf[data-template='horizontal-sticky-top'] {
+  &[data-theme='dark'] {
+    .cf-wrapper {
+      border: solid 1px rgba(255, 255, 255, 0.1);
+      background-color: rgba(255, 255, 255, 0.2);
+
+      .cf-text {
+        color: rgba(255, 255, 255, 0.9);
+        strong {
+          color: #ffffff;
+        }
+      }
+      .cf-powered-by {
+        color: rgba(255, 255, 255, 0.7);
+      }
+    }
+  }
+
+  &[data-theme='light'] {
+    .cf-wrapper {
+      border: solid 1px #e9e9e9;
+      background-color: #f7f7f7;
+
+      .cf-text {
+        color: #777777;
+        strong {
+          color: #212121;
+        }
+      }
+      .cf-powered-by {
+        color: #909090;
+      }
+    }
+  }
+
+  a {
+    box-shadow: none !important;
+  }
+
+  .cf-wrapper {
+    border-radius: 3px;
+    z-index: 5000;
+    font-family: Helvetica, Arial, sans-serif;
+    font-size: 13px;
+    box-sizing: border-box;
+    width: 100%;
+    line-height: 1.5;
+    display: block;
+    padding: 12px 11px;
+    text-align: left;
+    margin: 12px 0;
+
+    .cf-text {
+      text-decoration: none;
+      cursor: pointer;
+
+      &:before {
+        margin-right: 4px;
+        padding: 2px 6px;
+        border-radius: 3px;
+        background-color: #4caf50;
+        color: #fff;
+        content: "Supporter";
+      }
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .cf-label {
+      margin-right: 4px;
+      padding: 2px 6px;
+      border-radius: 3px;
+      background-color: #08c;
+      color: #fafafa;
+
+      &:hover {
+        text-decoration: none !important;
+      }
+    }
+
+    .cf-powered-by {
+      text-decoration: none;
+      color: rgba(255, 255, 255, 0.7);
+      float: right;
+      font-size: 12px;
+      cursor: pointer;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 576px) {
+  #cf .cf-wrapper .cf-powered-by {
+    display: block;
+    float: none;
+    text-align: right;
+  }
+}
